@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Menu
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: WebGL
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 01f0ae04acdd82049a4f24ed5da71cd2, type: 3}
+    - {fileID: 2800000, guid: 9c06010693af47a4e8d08ea7cb81e95d, type: 3}
+    - {fileID: 2800000, guid: 34fda9b3e562adf48807bd104d266cc8, type: 3}
+    - {fileID: 2800000, guid: e287c86171c87a841b5d8dca73ff968a, type: 3}
+    - {fileID: 2800000, guid: e14297ace67e4a84bafc7c3594f5d6fa, type: 3}
+    - {fileID: 2800000, guid: da220af8542261c46b026146bf51b793, type: 3}
+    - {fileID: 2800000, guid: 12df24588c7326a4f86d11c3afcf8dec, type: 3}
+    - {fileID: 2800000, guid: 43dd0b2ba6a63374686b467afd9cfc75, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - e287c86171c87a841b5d8dca73ff968a: 21300000
+    - 34fda9b3e562adf48807bd104d266cc8: 21300000
+    - 01f0ae04acdd82049a4f24ed5da71cd2: 21300000
+    - 9c06010693af47a4e8d08ea7cb81e95d: 21300000
+    - 12df24588c7326a4f86d11c3afcf8dec: 21300000
+    - da220af8542261c46b026146bf51b793: 21300000
+    - 43dd0b2ba6a63374686b467afd9cfc75: 21300000
+    - e14297ace67e4a84bafc7c3594f5d6fa: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: e287c86171c87a841b5d8dca73ff968a, type: 3}
+  - {fileID: 21300000, guid: 34fda9b3e562adf48807bd104d266cc8, type: 3}
+  - {fileID: 21300000, guid: 01f0ae04acdd82049a4f24ed5da71cd2, type: 3}
+  - {fileID: 21300000, guid: 9c06010693af47a4e8d08ea7cb81e95d, type: 3}
+  - {fileID: 21300000, guid: 12df24588c7326a4f86d11c3afcf8dec, type: 3}
+  - {fileID: 21300000, guid: da220af8542261c46b026146bf51b793, type: 3}
+  - {fileID: 21300000, guid: 43dd0b2ba6a63374686b467afd9cfc75, type: 3}
+  - {fileID: 21300000, guid: e14297ace67e4a84bafc7c3594f5d6fa, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 000
+  - Default@4x
+  - Default@4x
+  - Default@4x
+  - 001
+  - Close
+  - 000 2
+  - 000 3
+  m_RenderDataMap: {}
+  m_Tag: Menu
+  m_IsVariant: 0

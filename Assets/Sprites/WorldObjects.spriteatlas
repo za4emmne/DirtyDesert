@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WorldObjects
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: WebGL
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: bde103c2d071c3f46ac6cd117f062c79, type: 3}
+    - {fileID: 2800000, guid: 0248e4f6490414b40a76fc53e87e9942, type: 3}
+    - {fileID: 2800000, guid: 78237973e2c7f6342ad0d74c8438974f, type: 3}
+    - {fileID: 2800000, guid: f603afe36dfa3e14ea76f02d01e81ca2, type: 3}
+    - {fileID: 2800000, guid: 43f917a2a3fa69349ab135006872c6b0, type: 3}
+    - {fileID: 2800000, guid: 18eba603e39d01c4fa5149c86ea46b65, type: 3}
+    - {fileID: 2800000, guid: 80bdaf99d061ad448bce322fbc36a8e1, type: 3}
+    - {fileID: 2800000, guid: 7dc0be48ee474234f8ef8ce9a09f52fe, type: 3}
+    - {fileID: 2800000, guid: 8ccd717ae7cd72f4bbcb35c536405873, type: 3}
+    - {fileID: 2800000, guid: 3f7bc0620183086428e8203669142796, type: 3}
+    - {fileID: 102900000, guid: 81f18005324f7d7409c1caf73ce54b8b, type: 3}
+    - {fileID: 102900000, guid: c7c5b80f7534ace4292afc5103b0f648, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 3f7bc0620183086428e8203669142796: 21300000
+    - 43f917a2a3fa69349ab135006872c6b0: 21300000
+    - bde103c2d071c3f46ac6cd117f062c79: 21300000
+    - ff3f5cf26e4e5904e89b14624d05f4be: -699163584
+    - ff3f5cf26e4e5904e89b14624d05f4be: 267669129
+    - ff3f5cf26e4e5904e89b14624d05f4be: -374654591
+    - ff3f5cf26e4e5904e89b14624d05f4be: -1251760512
+    - ff3f5cf26e4e5904e89b14624d05f4be: -1693860472
+    - ff3f5cf26e4e5904e89b14624d05f4be: 2045217958
+    - ff3f5cf26e4e5904e89b14624d05f4be: 1543189171
+    - ff3f5cf26e4e5904e89b14624d05f4be: 1469189086
+    - ff3f5cf26e4e5904e89b14624d05f4be: -1261809198
+    - 18eba603e39d01c4fa5149c86ea46b65: 21300000
+    - 78237973e2c7f6342ad0d74c8438974f: 21300000
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 571800698
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 559027608
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1340697416
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 1779037623
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 2018231087
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1944528369
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1875947222
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 613892753
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -2141598951
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 1678679959
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -270415890
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -171610310
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1325413875
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 1684382885
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 595969992
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 1215091507
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1766762242
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1905665793
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -662281105
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: 610392431
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1387558321
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -1761878264
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -75884351
+    - 7a7aa6d337f6cc048ade02cb7a358cd6: -633452913
+    - f603afe36dfa3e14ea76f02d01e81ca2: 21300000
+    - 0248e4f6490414b40a76fc53e87e9942: 21300000
+    - 7dc0be48ee474234f8ef8ce9a09f52fe: 21300000
+    - 80bdaf99d061ad448bce322fbc36a8e1: 21300000
+    - 8ccd717ae7cd72f4bbcb35c536405873: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 3f7bc0620183086428e8203669142796, type: 3}
+  - {fileID: 21300000, guid: 43f917a2a3fa69349ab135006872c6b0, type: 3}
+  - {fileID: 21300000, guid: bde103c2d071c3f46ac6cd117f062c79, type: 3}
+  - {fileID: -699163584, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: 267669129, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: -374654591, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: -1251760512, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: -1693860472, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: 2045217958, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: 1543189171, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: 1469189086, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: -1261809198, guid: ff3f5cf26e4e5904e89b14624d05f4be, type: 3}
+  - {fileID: 21300000, guid: 18eba603e39d01c4fa5149c86ea46b65, type: 3}
+  - {fileID: 21300000, guid: 78237973e2c7f6342ad0d74c8438974f, type: 3}
+  - {fileID: 571800698, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 559027608, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1340697416, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 1779037623, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 2018231087, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1944528369, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1875947222, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 613892753, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -2141598951, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 1678679959, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -270415890, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -171610310, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1325413875, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 1684382885, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 595969992, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 1215091507, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1766762242, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1905665793, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -662281105, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 610392431, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1387558321, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -1761878264, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -75884351, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: -633452913, guid: 7a7aa6d337f6cc048ade02cb7a358cd6, type: 3}
+  - {fileID: 21300000, guid: f603afe36dfa3e14ea76f02d01e81ca2, type: 3}
+  - {fileID: 21300000, guid: 0248e4f6490414b40a76fc53e87e9942, type: 3}
+  - {fileID: 21300000, guid: 7dc0be48ee474234f8ef8ce9a09f52fe, type: 3}
+  - {fileID: 21300000, guid: 80bdaf99d061ad448bce322fbc36a8e1, type: 3}
+  - {fileID: 21300000, guid: 8ccd717ae7cd72f4bbcb35c536405873, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Small Cloud 3
+  - stone2
+  - cock4
+  - TNTAtlas_13
+  - TNTAtlas_5
+  - TNTAtlas_4
+  - TNTAtlas_6
+  - TNTAtlas_1
+  - TNTAtlas_0
+  - TNTAtlas_3
+  - TNTAtlas_2
+  - TNTAtlas_9
+  - stone1
+  - cock3
+  - EUR_6x4_9
+  - EUR_6x4_8
+  - EUR_6x4_3
+  - EUR_6x4_2
+  - EUR_6x4_1
+  - EUR_6x4_0
+  - EUR_6x4_7
+  - EUR_6x4_6
+  - EUR_6x4_5
+  - EUR_6x4_4
+  - EUR_6x4_23
+  - EUR_6x4_22
+  - EUR_6x4_18
+  - EUR_6x4_21
+  - EUR_6x4_19
+  - EUR_6x4_20
+  - EUR_6x4_16
+  - EUR_6x4_17
+  - EUR_6x4_14
+  - EUR_6x4_15
+  - EUR_6x4_12
+  - EUR_6x4_13
+  - EUR_6x4_10
+  - EUR_6x4_11
+  - cock2
+  - cock1
+  - Small Cloud 1
+  - stone
+  - Small Cloud 2
+  m_RenderDataMap: {}
+  m_Tag: WorldObjects
+  m_IsVariant: 0
