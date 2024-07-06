@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Wallet : MonoBehaviour
 {
     [SerializeField] private PlayerUpCoin _playerUpCoin;
+    [SerializeField] private Text _coinsInWallet;
     [Header("Мониторинг данных")]
     [SerializeField] private int _coin;
+    [SerializeField] private int _coinInRound;
 
     public int Coin => _coin;
 
@@ -32,6 +35,13 @@ public class Wallet : MonoBehaviour
     private void AddCoin()
     {
         _coin++;
+        _coinInRound++;
         PlayerPrefs.SetInt("SaveCoins", _coin);
+        ChangeCoins();
+
+    }
+    private void ChangeCoins()
+    {
+        _coinsInWallet.text = "Монеты: " + _coinInRound.ToString();
     }
 }

@@ -14,8 +14,10 @@ public class PlayMenu : MonoBehaviour
     [SerializeField] private UnityEngine.GameObject _menu;
     [SerializeField] private UnityEngine.GameObject _buttomPause;
     [SerializeField] private UnityEngine.GameObject _scoreObject;
+    [SerializeField] private UnityEngine.GameObject _coinCount;
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _highScoreText;
+    [SerializeField] private Text _coinsInWallet;
 
     [Header("Вспомогательные скрипты")]
     [SerializeField] private PlayerBoomTNT _playerBoomed;
@@ -34,34 +36,41 @@ public class PlayMenu : MonoBehaviour
         _rulesGame.SetActive(false);
         _buttomPause.SetActive(false);
         _scoreObject.SetActive(false);
+        _coinCount.SetActive(false);
     }
 
     private void Start()
     {
         ChangeHighSCore();
-    }
-
-
-    private void Update()
-    {
-        _score = _scoreManager.Score; //сделать через события
-        HideRules(); //сделать через события
-        _scoreText.text = "Очки: " + _score.ToString(); //сделать через события
+        ChangeCoins();
     }
 
     private void OnEnable()
     {
         _playerBoomed.PlayerBoomed += GameOver;
+        _scoreManager.HidedRules += HideRules;
     }
 
     private void OnDisable()
     {
         _playerBoomed.PlayerBoomed -= GameOver;
+        _scoreManager.HidedRules -= HideRules;
+    }
+
+    public void RestartPlay()
+    {
+        SceneManager.LoadScene("Game");
+        Play();
     }
 
     public void ChangeHighSCore()
     {
         _highScoreText.text = "Рекорд: " + _scoreManager.HighScore.ToString();
+    }
+
+    public void ChangeCoins()
+    {
+        _coinsInWallet.text = _wallet.Coin.ToString() + "";
     }
 
     public void Play()
@@ -72,6 +81,7 @@ public class PlayMenu : MonoBehaviour
         _rulesGame.SetActive(true);
         _nameGame.SetActive(false);
         _scoreObject.SetActive(true);
+        _coinCount.SetActive(true);
     }
 
     public void Pause()
@@ -99,7 +109,6 @@ public class PlayMenu : MonoBehaviour
 
     private void HideRules()
     {
-        if (_score > 1)
             _rulesGame.SetActive(false);
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _score;
     [SerializeField] private int _highScore;
     [SerializeField] private int _nextStepScore = 4;
+    [SerializeField] private Text _scoreText;
 
     public event Action StepScoreChanged;
+    public event Action HidedRules;
 
     public int HighScore => _highScore;
     public int Score => _score;
@@ -19,11 +22,6 @@ public class ScoreManager : MonoBehaviour
     {
         _highScore = PlayerPrefs.GetInt("SaveScore");
         _score = 0;
-    }
-
-    private void Update()
-    {
-        RandomStepScore();
     }
 
     public void ClearHighScore()
@@ -42,9 +40,22 @@ public class ScoreManager : MonoBehaviour
         _player.PlayerGetedScore -= AddScore;
     }
 
+    private void ChangeScore()
+    {
+        _scoreText.text = "Очки: " + _score.ToString();
+    }
+
     private void AddScore()
     {
         _score++;
+
+        if(_score == 3)
+        {
+            HidedRules?.Invoke();
+        }
+
+        RandomStepScore();
+        ChangeScore();
         GetHighScore();
     }
 
