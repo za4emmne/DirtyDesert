@@ -19,7 +19,8 @@ public class PlayerUpCoin : MonoBehaviour
         {
             UpCoin?.Invoke();
             _audioSource.PlayOneShot(_coinSound);
-            Destroy(coin.gameObject, 0.05f);
+            coin.gameObject.SetActive(false);
+            //Destroy(coin.gameObject, 0.05f);
         }
     }
 }

@@ -1,16 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Principal;
 using UnityEngine;
 
-public class SpawnObject : MonoBehaviour
+public class SpawnCoin : MonoBehaviour
 {
     [SerializeField] private GameManager _gameManager;
-    [SerializeField] private Transform _transform;
-    [SerializeField] private PoolObjects _poolObject;
     [SerializeField] private float _minDelay;
     [SerializeField] private float _maxDelay;
-    [SerializeField] private float _devationPositionY = 1;
+    private Transform _transform;
+    private PoolObjectCoin _poolObject;
     [Header("Мониторинг данных")]
     [SerializeField] private float _spawnTime;
     private Coroutine _coroutine;
@@ -20,7 +17,6 @@ public class SpawnObject : MonoBehaviour
         _gameManager.Play += OnStart;
         _gameManager.SpawnTimeChanged += ChangeSpawnTime;
         _gameManager.GameOver += OnStop;
-        //_gameManager.ChangeSpeed += OnChangeSpeed;
     }
 
     private void OnDisable()
@@ -28,11 +24,12 @@ public class SpawnObject : MonoBehaviour
         _gameManager.Play -= OnStart;
         _gameManager.SpawnTimeChanged -= ChangeSpawnTime;
         _gameManager.GameOver -= OnStop;
-        //_gameManager.ChangeSpeed -= OnChangeSpeed;
     }
 
     private void OnStart()
     {
+        _transform = GetComponent<Transform>();
+        _poolObject = GetComponent<PoolObjectCoin>();
         _coroutine = StartCoroutine(Spawn());
     }
 
@@ -44,22 +41,17 @@ public class SpawnObject : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        float minPositionY = transform.position.y - _devationPositionY;
-        float maxPositionY = transform.position.y + _devationPositionY;
-
         while (true)
         {
-            
-            float positionY = Random.Range(minPositionY, maxPositionY);
             _spawnTime = Random.Range(_minDelay, _maxDelay);
 
             var waitForSeconds = new WaitForSeconds(_spawnTime);
 
-            Vector3 spawnPoint = new Vector3(transform.position.x, positionY, transform.position.z);
-            var tnt = _poolObject.GetObject();
+            Vector3 spawnPoint = _transform.position;
+            var obj = _poolObject.GetObject();
 
-            tnt.gameObject.SetActive(true);
-            tnt.transform.position = spawnPoint;
+            obj.gameObject.SetActive(true);
+            obj.transform.position = spawnPoint;
 
             yield return waitForSeconds;
         }

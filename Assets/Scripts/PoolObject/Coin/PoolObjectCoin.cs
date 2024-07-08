@@ -1,21 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolObjects : MonoBehaviour
+public class PoolObjectCoin : MonoBehaviour
 {
-    [SerializeField] private Object _object;
-    [SerializeField] private Transform _transform;
+    [SerializeField] private Coin _object;
+    private Transform _transform;
 
-    private Queue<Object> _pool;
+    private Queue<Coin> _pool;
 
-    public IEnumerable<Object> PooledObjects => _pool;
+    public IEnumerable<Coin> PooledObjects => _pool;
 
     private void Awake()
     {
-        _pool = new Queue<Object>();
+        _pool = new Queue<Coin>();
+        _transform = GetComponent<Transform>();
     }
 
-    public Object GetObject()
+    public Coin GetObject()
     {
         if (_pool.Count == 0)
         {
@@ -27,7 +28,7 @@ public class PoolObjects : MonoBehaviour
         return _pool.Dequeue();
     }
 
-    public void PutObject(Object obj)
+    public void PutObject(Coin obj)
     {
         _pool.Enqueue(obj);
         obj.gameObject.SetActive(false);

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1247568130781387677}
   - component: {fileID: 7712003116306393811}
   - component: {fileID: 9070851209306095951}
-  - component: {fileID: -5056656096844369059}
   - component: {fileID: 9075043328509291328}
   - component: {fileID: -5285771838735712741}
   m_Layer: 0
@@ -28,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4266753533826713746}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.761, y: -0.0215, z: 0}
   m_LocalScale: {x: 0.4529, y: 0.4529, z: 0.4529}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7712003116306393811
 SpriteRenderer:
@@ -108,18 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &-5056656096844369059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266753533826713746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549b01dfe3c7b4746a8b4495b440b5a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!58 &9075043328509291328
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,6 +118,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0

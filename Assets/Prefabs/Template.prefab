@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1132922342697990922}
   - component: {fileID: 7914762911123410602}
   - component: {fileID: 5520477189864647710}
-  - component: {fileID: 8348156386582527864}
+  - component: {fileID: 2889209984095189598}
   m_Layer: 0
   m_Name: Template
   m_TagString: Untagged
@@ -146,7 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _object: {fileID: 11400000, guid: b7ea5e5de60438f429b617482a6d9457, type: 2}
   _image: {fileID: 0}
---- !u!114 &8348156386582527864
+  _maxNumber: 4
+--- !u!114 &2889209984095189598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,6 +156,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 690145342466844611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549b01dfe3c7b4746a8b4495b440b5a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 31a1082fbc7c7284a94168a1c34b68ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

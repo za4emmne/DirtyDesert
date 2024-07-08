@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3071219192146400149}
   - component: {fileID: 3071219192146400148}
   - component: {fileID: 3071219192146400138}
-  - component: {fileID: -8571998784425211425}
+  - component: {fileID: 71256989957256668}
+  - component: {fileID: -3029504708436773467}
   m_Layer: 0
   m_Name: stone
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3071219192146400137}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.06, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3071219192146400148
 SpriteRenderer:
@@ -96,6 +97,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -112,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &-8571998784425211425
+--- !u!114 &71256989957256668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,6 +141,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3071219192146400137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549b01dfe3c7b4746a8b4495b440b5a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 819673a4caadceb4fa57b17122601708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 11400000, guid: 9a984c30d08f23c42af593fd92b4bc60, type: 2}
+  _image: {fileID: 0}
+  _maxNumber: 3
+--- !u!114 &-3029504708436773467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3071219192146400137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24947488a9ba714095c51f7c8c84119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
