@@ -11,11 +11,13 @@ public class Murder : MonoBehaviour
     [SerializeField] private string[] _dialogText;
 
     private string _dialogStartGame = "Попробуй поймать меня";
+    private Coroutine _coroutine;
+    private Animator _animator;
 
     private void Start()
-    { 
-        int number = Random.Range(0, _dialogText.Length);
-        _dialog.text = _dialogText[number];
+    {
+        _animator = GetComponent<Animator>();
+        _coroutine = StartCoroutine(StartScene());
     }
 
     private void OnEnable()
@@ -29,7 +31,7 @@ public class Murder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out MurderTarget murderTarget))
+        if (collision.TryGetComponent(out MurderTarget murderTarget))
         {
             gameObject.SetActive(false);
         }
@@ -37,13 +39,27 @@ public class Murder : MonoBehaviour
 
     private void StartGame()
     {
-        _dialog.text = _dialogStartGame;
-        StartCoroutine(GetAway());
+        _animator.SetTrigger("Run");
+        _coroutine = StartCoroutine(GetAway());
+        StopCoroutine(StartScene());
     }
 
     private IEnumerator GetAway()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+        _dialog.text = _dialogStartGame;
+
+        while (transform.position != _target.position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator StartScene()
+    {
+        int number = Random.Range(0, _dialogText.Length);
+        _dialog.text = _dialogText[number];
+
         yield return null;
     }
 }

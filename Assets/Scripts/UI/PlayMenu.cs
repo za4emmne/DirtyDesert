@@ -8,13 +8,15 @@ using UnityEngine.SceneManagement;
 public class PlayMenu : MonoBehaviour
 {
     [Header("Объекты меню")]
-    [SerializeField] private UnityEngine.GameObject _nameGame;
-    [SerializeField] private UnityEngine.GameObject _gameOver;
-    [SerializeField] private UnityEngine.GameObject _pauseMenu;
-    [SerializeField] private UnityEngine.GameObject _menu;
-    [SerializeField] private UnityEngine.GameObject _buttomPause;
-    [SerializeField] private UnityEngine.GameObject _scoreObject;
-    [SerializeField] private UnityEngine.GameObject _coinCount;
+    [SerializeField] private GameObject _nameGame;
+    [SerializeField] private GameObject _gameOver;
+    [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _buttomPause;
+    [SerializeField] private GameObject _scoreObject;
+    [SerializeField] private GameObject _coinCount;
+    [SerializeField] private GameObject _shop;
+    [SerializeField] private GameObject _upButtom;
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _highScoreText;
     [SerializeField] private Text _coinsInWallet;
@@ -22,27 +24,37 @@ public class PlayMenu : MonoBehaviour
     [Header("Вспомогательные скрипты")]
     [SerializeField] private PlayerBoomTNT _playerBoomed;
     [SerializeField] private GameManager _gameManager;
-    [SerializeField] private UnityEngine.GameObject _rulesGame;
+    [SerializeField] private GameObject _rulesGame;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private Wallet _wallet;
 
     public event Action StartGame;
-    private int _score;
+    private int _isRestart;
 
     private void Awake()
     {
+        _isRestart = PlayerPrefs.GetInt("Restart");
         _pauseMenu.SetActive(false);
         _gameOver.SetActive(false);
         _rulesGame.SetActive(false);
         _buttomPause.SetActive(false);
         _scoreObject.SetActive(false);
         _coinCount.SetActive(false);
+        _shop.SetActive(false);
+        _upButtom.SetActive(false);
     }
 
     private void Start()
     {
-        ChangeHighSCore();
-        ChangeCoins();
+        if (_isRestart == 0)
+        {
+            ChangeHighSCore();
+            ChangeCoins();
+        }
+        else
+        {
+            Play();
+        }
     }
 
     private void OnEnable()
@@ -59,8 +71,8 @@ public class PlayMenu : MonoBehaviour
 
     public void RestartPlay()
     {
+        PlayerPrefs.SetInt("Restart", 1);
         SceneManager.LoadScene("Game");
-        Play();
     }
 
     public void ChangeHighSCore()
@@ -82,17 +94,31 @@ public class PlayMenu : MonoBehaviour
         _nameGame.SetActive(false);
         _scoreObject.SetActive(true);
         _coinCount.SetActive(true);
+        _upButtom.SetActive(true);
+        PlayerPrefs.SetInt("Restart", 0);
+    }
+
+    public void Shop()
+    {
+        _shop.SetActive(true);
+    }
+
+    public void CloseShop()
+    {
+        _shop.SetActive(false);
     }
 
     public void Pause()
     {
         _pauseMenu.SetActive(true);
+        _upButtom.SetActive(false);
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
         _pauseMenu.SetActive(false);
+        _upButtom.SetActive(true);
         Time.timeScale = 1;
     }
 
@@ -109,12 +135,13 @@ public class PlayMenu : MonoBehaviour
 
     private void HideRules()
     {
-            _rulesGame.SetActive(false);
+        _rulesGame.SetActive(false);
     }
 
     private void GameOver()
     {
         _gameOver.SetActive(true);
         _buttomPause.SetActive(false);
+        _upButtom.SetActive(false);
     }
 }

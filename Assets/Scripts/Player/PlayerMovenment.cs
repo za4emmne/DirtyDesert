@@ -23,7 +23,8 @@ public class PlayerMovenment : MonoBehaviour
 
     private void Update()
     {
-        Jump();
+        if (Input.GetKeyDown(KeyCode.Space)/* || Input.touchCount == 1*/)
+            Jump();
     }
 
     private void OnEnable()
@@ -41,13 +42,14 @@ public class PlayerMovenment : MonoBehaviour
         _jumpForce += addJumpForce;
     }
 
-    private void Jump()
+    public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGround)
+        if (_isGround)
         {
             AnimationJumpPlayed?.Invoke();
             AddForce();
         }
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)

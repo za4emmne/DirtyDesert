@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Grifon
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 9ee3bd96a97d6c448b432ef607d67bef, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 3428f860f72a53c42af1e593d736bf5e: 21300000
+    - 644e2d01bb7b1a544894e4552b4e4150: 21300000
+    - 733f0ee4d6847f4418bb1e435d3ba41f: 21300000
+    - c6737505187db7549b41348dd81982d7: 21300000
+    - f53b9c18923046c41843a2c4c1e4ec91: 21300000
+    - 72ce707960c1e6d42abc686d0dd97839: 21300000
+    - 5812018bd167aeb40a095ff31b8901cc: 21300000
+    - 4eeedd9e090a669459cf1143c92f1354: 21300000
+    - 9d9a66bfdbc6a4b418d10e9156f804d7: 21300000
+    - bbf089cf9f4559e48992af9d650b41ae: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 3428f860f72a53c42af1e593d736bf5e, type: 3}
+  - {fileID: 21300000, guid: 644e2d01bb7b1a544894e4552b4e4150, type: 3}
+  - {fileID: 21300000, guid: 733f0ee4d6847f4418bb1e435d3ba41f, type: 3}
+  - {fileID: 21300000, guid: c6737505187db7549b41348dd81982d7, type: 3}
+  - {fileID: 21300000, guid: f53b9c18923046c41843a2c4c1e4ec91, type: 3}
+  - {fileID: 21300000, guid: 72ce707960c1e6d42abc686d0dd97839, type: 3}
+  - {fileID: 21300000, guid: 5812018bd167aeb40a095ff31b8901cc, type: 3}
+  - {fileID: 21300000, guid: 4eeedd9e090a669459cf1143c92f1354, type: 3}
+  - {fileID: 21300000, guid: 9d9a66bfdbc6a4b418d10e9156f804d7, type: 3}
+  - {fileID: 21300000, guid: bbf089cf9f4559e48992af9d650b41ae, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A3"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A1"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A8"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A2"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A6"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A5"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A4"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A9"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A"
+  - "\u0441\u0442\u0435\u0440\u0432\u044F\u0442\u043D\u0438\u043A7"
+  m_RenderDataMap: {}
+  m_Tag: Grifon
+  m_IsVariant: 0
