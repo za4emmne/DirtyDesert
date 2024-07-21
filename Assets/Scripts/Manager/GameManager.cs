@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,13 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerBoomTNT _playerBoomed;
     [SerializeField] private PlayerMovenment _playerJumping;
     [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private AudioSource _boomAudio;
-
+    [SerializeField] private Slider _slider;
+    [SerializeField] private Toggle _toggle;
+    [SerializeField] private AudioMixerGroup _audioMixer;
 
     [Header("Мониторинг данных")]
     [SerializeField] private float _speed;
 
-    private bool _isGameOver;
     private bool _isStopInstantiate;
     private float _speedStep;
     private float _playerGravityScale;
@@ -24,7 +26,6 @@ public class GameManager : MonoBehaviour
     public event Action GameOver;
     public event Action ChangeSpeed;
 
-    public bool IsGameOver => _isGameOver;
     public float Speed => _speed;
     public bool IsStopInstantiate => _isStopInstantiate;
 
@@ -33,14 +34,31 @@ public class GameManager : MonoBehaviour
         _playerGravityScale = _playerBoomed.GetComponent<Rigidbody2D>().gravityScale;
         _isStopInstantiate = true;
         _speedStep = 0;
-        _isGameOver = false;
+        _slider.value = 1;
+    }
+
+    public void ToggleMusic(bool enabled)
+    {
+        if (_toggle.isOn)
+            _audioMixer.audioMixer.SetFloat("Music", 0);
+        else
+            _audioMixer.audioMixer.SetFloat("Music", -80);
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        volume = _slider.value;
+
+        if (volume == 0)
+            volume += 0.000001f;
+
+       _audioMixer.audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
     }
 
     public void StartPlayButtom()
     {
         _speed = 3;
         Play?.Invoke();
-        //SceneManager.LoadScene("Game");
         Time.timeScale = 1;
         ChangeSpeed?.Invoke();
     }
@@ -49,7 +67,6 @@ public class GameManager : MonoBehaviour
     {
         _speed = 0;
         ChangeSpeed?.Invoke();
-        //SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
     }
 
@@ -87,7 +104,5 @@ public class GameManager : MonoBehaviour
         GameOver?.Invoke();
         ChangeSpeed?.Invoke();
         _isStopInstantiate = true;
-        _isGameOver = true;
-        
     }
 }

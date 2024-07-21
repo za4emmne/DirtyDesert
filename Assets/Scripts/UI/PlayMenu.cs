@@ -17,14 +17,15 @@ public class PlayMenu : MonoBehaviour
     [SerializeField] private GameObject _coinCount;
     [SerializeField] private GameObject _shop;
     [SerializeField] private GameObject _upButtom;
+    [SerializeField] private GameObject _setting;
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _highScoreText;
     [SerializeField] private Text _coinsInWallet;
+    [SerializeField] private Text _gameRulesText;
 
     [Header("Вспомогательные скрипты")]
     [SerializeField] private PlayerBoomTNT _playerBoomed;
     [SerializeField] private GameManager _gameManager;
-    [SerializeField] private GameObject _rulesGame;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private Wallet _wallet;
 
@@ -36,12 +37,13 @@ public class PlayMenu : MonoBehaviour
         _isRestart = PlayerPrefs.GetInt("Restart");
         _pauseMenu.SetActive(false);
         _gameOver.SetActive(false);
-        _rulesGame.SetActive(false);
+        _gameRulesText.gameObject.SetActive(false);
         _buttomPause.SetActive(false);
         _scoreObject.SetActive(false);
         _coinCount.SetActive(false);
         _shop.SetActive(false);
         _upButtom.SetActive(false);
+        _setting.SetActive(false);
     }
 
     private void Start()
@@ -52,9 +54,10 @@ public class PlayMenu : MonoBehaviour
             ChangeCoins();
         }
         else
-        {
             Play();
-        }
+
+        if (Application.isMobilePlatform)
+            _gameRulesText.text = "Тапни на кнопку снизу, чтобы прыгать";
     }
 
     private void OnEnable()
@@ -67,6 +70,16 @@ public class PlayMenu : MonoBehaviour
     {
         _playerBoomed.PlayerBoomed -= GameOver;
         _scoreManager.HidedRules -= HideRules;
+    }
+
+    public void SettingWindow()
+    {
+        _setting.SetActive(true);
+    }
+
+    public void HideSettingWindow()
+    {
+        _setting.SetActive(false);
     }
 
     public void RestartPlay()
@@ -90,7 +103,7 @@ public class PlayMenu : MonoBehaviour
         StartGame?.Invoke();
         _buttomPause.SetActive(true);
         _menu.SetActive(false);
-        _rulesGame.SetActive(true);
+        _gameRulesText.gameObject.SetActive(true);
         _nameGame.SetActive(false);
         _scoreObject.SetActive(true);
         _coinCount.SetActive(true);
@@ -128,14 +141,9 @@ public class PlayMenu : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
-
     private void HideRules()
     {
-        _rulesGame.SetActive(false);
+        _gameRulesText.gameObject.SetActive(false);
     }
 
     private void GameOver()
