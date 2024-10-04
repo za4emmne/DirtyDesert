@@ -36,8 +36,13 @@ public class Wallet : MonoBehaviour
     {
         _coin++;
         _coinInRound++;
+
         PlayerPrefs.SetInt("SaveCoins", _coin);
         ChangeCoins();
+
+//#if !UNITY_EDITOR && UNITY_WEBGL
+//        Progress.Instance.Save();
+//#endif
 
     }
     private void ChangeCoins()

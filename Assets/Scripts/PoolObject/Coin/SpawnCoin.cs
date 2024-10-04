@@ -8,6 +8,7 @@ public class SpawnCoin : MonoBehaviour
     [SerializeField] private float _maxDelay;
     private Transform _transform;
     private PoolObjectCoin _poolObject;
+
     [Header("Мониторинг данных")]
     [SerializeField] private float _spawnTime;
     private Coroutine _coroutine;
@@ -26,10 +27,14 @@ public class SpawnCoin : MonoBehaviour
         _gameManager.GameOver -= OnStop;
     }
 
-    private void OnStart()
+    private void Start()
     {
         _transform = GetComponent<Transform>();
         _poolObject = GetComponent<PoolObjectCoin>();
+    }
+
+    private void OnStart()
+    {
         _coroutine = StartCoroutine(Spawn());
     }
 

@@ -1,9 +1,11 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+//using System.Runtime.InteropServices;
 
 public class ScoreManager : MonoBehaviour
 {
+
     [SerializeField] private PlayerGetScore _player;
 
     [Header("Мониторинг данных")]
@@ -49,7 +51,7 @@ public class ScoreManager : MonoBehaviour
     {
         _score++;
 
-        if(_score == 3)
+        if (_score == 3)
         {
             HidedRules?.Invoke();
         }
@@ -64,6 +66,10 @@ public class ScoreManager : MonoBehaviour
         if (_score > _highScore)
         {
             _highScore = _score;
+
+//#if !UNITY_EDITOR && UNITY_WEBGL
+//            Progress.Instance.Save();
+//#endif   
             PlayerPrefs.SetInt("SaveScore", _highScore);
         }
     }
