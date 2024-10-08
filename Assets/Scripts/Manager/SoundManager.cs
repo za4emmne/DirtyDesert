@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+//using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -23,11 +23,5 @@ public class SoundManager : MonoBehaviour
 
         _soundCount = Random.Range(0, _backgroundMusic.Length);
         _audioSource.clip = _backgroundMusic[_soundCount];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
