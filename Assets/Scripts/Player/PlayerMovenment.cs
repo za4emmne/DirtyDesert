@@ -8,6 +8,7 @@ public class PlayerMovenment : MonoBehaviour
 {
     [SerializeField] private PlayerBoomTNT _playerBoomTNT;
     [SerializeField] private float _jumpForce = 500;
+    [SerializeField] private ParticleSystem _dust;
 
     private Rigidbody2D _rigidbody2D;
     private bool _isGround;
@@ -47,6 +48,7 @@ public class PlayerMovenment : MonoBehaviour
         if (_isGround)
         {
             AnimationJumpPlayed?.Invoke();
+            _dust.Play();
             AddForce();
         }
 
