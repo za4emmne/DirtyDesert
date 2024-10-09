@@ -48,7 +48,7 @@ public class PlayerMovenment : MonoBehaviour
         if (_isGround)
         {
             AnimationJumpPlayed?.Invoke();
-            _dust.Play();
+            //_dust.Play();
             AddForce();
         }
 

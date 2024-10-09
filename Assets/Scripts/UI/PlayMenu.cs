@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 [RequireComponent(typeof(GameManager))]
 
@@ -28,6 +29,12 @@ public class PlayMenu : MonoBehaviour
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private Wallet _wallet;
+
+    [Header("Настройки Твин")]
+    [SerializeField] private Vector3 _targetActive;
+    [SerializeField] private Vector3 _targetInactive;
+    [SerializeField] private float _duration;
+
 
     public event Action StartGame;
     private int _isRestart;
@@ -75,11 +82,12 @@ public class PlayMenu : MonoBehaviour
     public void SettingWindow()
     {
         _setting.SetActive(true);
+        _setting.transform.DOMove(_targetActive, _duration);
     }
 
     public void HideSettingWindow()
     {
-        _setting.SetActive(false);
+        _setting.transform.DOMove(_targetInactive, _duration);
     }
 
     public void RestartPlay()
@@ -114,11 +122,12 @@ public class PlayMenu : MonoBehaviour
     public void Shop()
     {
         _shop.SetActive(true);
+        _shop.transform.DOMove(_targetActive, _duration);
     }
 
     public void CloseShop()
     {
-        _shop.SetActive(false);
+        _shop.transform.DOMove(_targetInactive, _duration);
     }
 
     public void Pause()
