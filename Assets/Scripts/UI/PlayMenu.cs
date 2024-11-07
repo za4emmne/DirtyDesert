@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using YG;
 
 [RequireComponent(typeof(GameManager))]
 
@@ -57,8 +58,11 @@ public class PlayMenu : MonoBehaviour
     {
         if (_isRestart == 0)
         {
-            ChangeHighSCore();
-            ChangeCoins();
+            if (YandexGame.SDKEnabled)
+            {
+                ChangeHighSCore();
+                ChangeCoins();
+            }
         }
         else
             Play();
@@ -71,12 +75,16 @@ public class PlayMenu : MonoBehaviour
     {
         _playerBoomed.PlayerBoomed += GameOver;
         _scoreManager.HidedRules += HideRules;
+        YandexGame.GetDataEvent += ChangeCoins;
+        YandexGame.GetDataEvent += ChangeHighSCore;
     }
 
     private void OnDisable()
     {
         _playerBoomed.PlayerBoomed -= GameOver;
         _scoreManager.HidedRules -= HideRules;
+        YandexGame.GetDataEvent -= ChangeCoins;
+        YandexGame.GetDataEvent -= ChangeHighSCore;
     }
 
     public void SettingWindow()
@@ -140,7 +148,16 @@ public class PlayMenu : MonoBehaviour
     public void Continue()
     {
         _pauseMenu.SetActive(false);
-        _upButtom.SetActive(true);
+
+        if (Application.isMobilePlatform)
+        {
+            _upButtom.SetActive(true);
+        }
+        else
+        {
+            _upButtom.SetActive(false);
+        }
+
         Time.timeScale = 1;
     }
 

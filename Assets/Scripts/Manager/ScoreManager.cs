@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using YG;
 //using System.Runtime.InteropServices;
 
 public class ScoreManager : MonoBehaviour
@@ -20,26 +21,40 @@ public class ScoreManager : MonoBehaviour
     public int HighScore => _highScore;
     public int Score => _score;
 
-    private void Awake()
+    private void Start()
     {
-        _highScore = PlayerPrefs.GetInt("SaveScore");
+        if (YandexGame.SDKEnabled)
+        {
+            GetLoad();
+        }
+
+        //_highScore = PlayerPrefs.GetInt("SaveScore");
+
         _score = 0;
+    }
+
+    public void GetLoad()
+    {
+        _highScore = YandexGame.savesData.HighScore;
     }
 
     public void ClearHighScore()
     {
-        _highScore = 0;
-        PlayerPrefs.SetInt("SaveScore", _highScore);
+        YandexGame.ResetSaveProgress();
+        YandexGame.SaveProgress();
+        //PlayerPrefs.SetInt("SaveScore", _highScore);
     }
 
     private void OnEnable()
     {
         _player.PlayerGetedScore += AddScore;
+        YandexGame.GetDataEvent += GetLoad;
     }
 
     private void OnDisable()
     {
         _player.PlayerGetedScore -= AddScore;
+        YandexGame.GetDataEvent -= GetLoad;
     }
 
     private void ChangeScore()
@@ -67,10 +82,12 @@ public class ScoreManager : MonoBehaviour
         {
             _highScore = _score;
 
-//#if !UNITY_EDITOR && UNITY_WEBGL
-//            Progress.Instance.Save();
-//#endif   
-            PlayerPrefs.SetInt("SaveScore", _highScore);
+            //#if !UNITY_EDITOR && UNITY_WEBGL
+            //            Progress.Instance.Save();
+            //#endif   
+            //PlayerPrefs.SetInt("SaveScore", _highScore);
+            YandexGame.savesData.HighScore = _highScore;
+            YandexGame.SaveProgress();
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class Wallet : MonoBehaviour
 {
@@ -11,25 +12,24 @@ public class Wallet : MonoBehaviour
 
     public int Coin => _coin;
 
-    private void Awake()
+    private void Start()
     {
-        _coin = PlayerPrefs.GetInt("SaveCoins");
+        if (YandexGame.SDKEnabled)
+        {
+            LoadCoin();
+        }
     }
 
     private void OnEnable()
     {
         _playerUpCoin.UpCoin += AddCoin;
+        YandexGame.GetDataEvent += LoadCoin;
     }
 
     private void OnDisable()
     {
         _playerUpCoin.UpCoin -= AddCoin;
-    }
-
-    public void ClearWallet()
-    {
-        _coin = 0;
-        PlayerPrefs.SetInt("SaveCoins", _coin);
+        YandexGame.GetDataEvent += LoadCoin;
     }
 
     private void AddCoin()
@@ -37,16 +37,22 @@ public class Wallet : MonoBehaviour
         _coin++;
         _coinInRound++;
 
-        PlayerPrefs.SetInt("SaveCoins", _coin);
+        YandexGame.savesData.Coins = _coin;
+        YandexGame.SaveProgress();
         ChangeCoins();
 
-//#if !UNITY_EDITOR && UNITY_WEBGL
-//        Progress.Instance.Save();
-//#endif
+        //#if !UNITY_EDITOR && UNITY_WEBGL
+        //        Progress.Instance.Save();
+        //#endif
 
     }
     private void ChangeCoins()
     {
         _coinsInWallet.text = "Монеты: " + _coinInRound.ToString();
+    }
+
+    private void LoadCoin()
+    {
+        _coin = YandexGame.savesData.Coins;
     }
 }
