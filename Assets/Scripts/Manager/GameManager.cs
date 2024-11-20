@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private Toggle _toggle;
     [SerializeField] private AudioMixerGroup _audioMixer;
+    [SerializeField] private OrientationManager _orientationManager;
 
     [Header("Мониторинг данных")]
     [SerializeField] private float _speed;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         _isStopInstantiate = true;
         _speedStep = 0;
         _slider.value = 1;
+        _orientationManager.OnChanged();
     }
 
     public void ToggleMusic(bool enabled)
