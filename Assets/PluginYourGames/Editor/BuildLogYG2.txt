@@ -1,0 +1,3 @@
+Build path: D:/game/DDwithYG2
+Build number: 7
+PluginYG version: 2.002

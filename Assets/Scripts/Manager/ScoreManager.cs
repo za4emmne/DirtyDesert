@@ -21,9 +21,9 @@ public class ScoreManager : MonoBehaviour
     public int HighScore => _highScore;
     public int Score => _score;
 
-    private void Start()
+    private void Awake()
     {
-        if (YandexGame.SDKEnabled)
+        if (YG2.isSDKEnabled)
         {
             GetLoad();
         }
@@ -35,26 +35,28 @@ public class ScoreManager : MonoBehaviour
 
     public void GetLoad()
     {
-        _highScore = YandexGame.savesData.HighScore;
+        _highScore = YG2.saves.score;
     }
 
     public void ClearHighScore()
     {
-        YandexGame.ResetSaveProgress();
-        YandexGame.SaveProgress();
+        //YandexGame.ResetSaveProgress();
+        //YandexGame.SaveProgress();
         //PlayerPrefs.SetInt("SaveScore", _highScore);
     }
 
     private void OnEnable()
     {
         _player.PlayerGetedScore += AddScore;
-        YandexGame.GetDataEvent += GetLoad;
+        YG2.onGetSDKData += GetLoad;
+        //YandexGame.GetDataEvent += GetLoad;
     }
 
     private void OnDisable()
     {
         _player.PlayerGetedScore -= AddScore;
-        YandexGame.GetDataEvent -= GetLoad;
+        YG2.onGetSDKData -= GetLoad;
+        //YandexGame.GetDataEvent -= GetLoad;
     }
 
     private void ChangeScore()
@@ -86,8 +88,9 @@ public class ScoreManager : MonoBehaviour
             //            Progress.Instance.Save();
             //#endif   
             //PlayerPrefs.SetInt("SaveScore", _highScore);
-            YandexGame.savesData.HighScore = _highScore;
-            YandexGame.SaveProgress();
+
+            YG2.saves.score = _highScore;
+            YG2.SaveProgress();
         }
     }
 

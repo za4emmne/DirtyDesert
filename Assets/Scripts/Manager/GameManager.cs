@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using YG.Insides;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private Toggle _toggle;
     [SerializeField] private AudioMixerGroup _audioMixer;
-    [SerializeField] private OrientationManager _orientationManager;
+    //[SerializeField] private OrientationManager _orientationManager;
 
     [Header("Мониторинг данных")]
     [SerializeField] private float _speed;
@@ -30,13 +31,19 @@ public class GameManager : MonoBehaviour
     public float Speed => _speed;
     public bool IsStopInstantiate => _isStopInstantiate;
 
+    private void Awake()
+    {
+        YGInsides.LoadProgress();
+    }
+
     private void Start()
     {
+
         _playerGravityScale = _playerBoomed.GetComponent<Rigidbody2D>().gravityScale;
         _isStopInstantiate = true;
         _speedStep = 0;
         _slider.value = 1;
-        _orientationManager.OnChanged();
+       // _orientationManager.OnChanged();
     }
 
     public void ToggleMusic(bool enabled)
@@ -54,7 +61,7 @@ public class GameManager : MonoBehaviour
         if (volume == 0)
             volume += 0.000001f;
 
-       _audioMixer.audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        _audioMixer.audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
     }
 
     public void StartPlayButtom()

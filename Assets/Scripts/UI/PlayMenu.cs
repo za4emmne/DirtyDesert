@@ -4,6 +4,7 @@ using System;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using YG;
+using YG.Insides;
 
 [RequireComponent(typeof(GameManager))]
 
@@ -42,6 +43,7 @@ public class PlayMenu : MonoBehaviour
 
     private void Awake()
     {
+        YGInsides.LoadProgress();
         _isRestart = PlayerPrefs.GetInt("Restart");
         _pauseMenu.SetActive(false);
         _gameOver.SetActive(false);
@@ -58,11 +60,9 @@ public class PlayMenu : MonoBehaviour
     {
         if (_isRestart == 0)
         {
-            if (YandexGame.SDKEnabled)
-            {
-                ChangeHighSCore();
-                ChangeCoins();
-            }
+            YGInsides.LoadProgress();
+            ChangeHighSCore();
+            ChangeCoins();
         }
         else
             Play();
@@ -75,16 +75,12 @@ public class PlayMenu : MonoBehaviour
     {
         _playerBoomed.PlayerBoomed += GameOver;
         _scoreManager.HidedRules += HideRules;
-        YandexGame.GetDataEvent += ChangeCoins;
-        YandexGame.GetDataEvent += ChangeHighSCore;
     }
 
     private void OnDisable()
     {
         _playerBoomed.PlayerBoomed -= GameOver;
         _scoreManager.HidedRules -= HideRules;
-        YandexGame.GetDataEvent -= ChangeCoins;
-        YandexGame.GetDataEvent -= ChangeHighSCore;
     }
 
     public void SettingWindow()
@@ -100,6 +96,8 @@ public class PlayMenu : MonoBehaviour
 
     public void RestartPlay()
     {
+        ChangeHighSCore();
+        ChangeCoins();
         PlayerPrefs.SetInt("Restart", 1);
         SceneManager.LoadScene("Game");
     }
@@ -116,6 +114,8 @@ public class PlayMenu : MonoBehaviour
 
     public void Play()
     {
+        ChangeHighSCore();
+        ChangeCoins();
         StartGame?.Invoke();
         _buttomPause.SetActive(true);
         _menu.SetActive(false);
@@ -163,6 +163,8 @@ public class PlayMenu : MonoBehaviour
 
     public void Home()
     {
+        ChangeHighSCore();
+        ChangeCoins();
         SceneManager.LoadScene("Game");
         Time.timeScale = 1;
     }

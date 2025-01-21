@@ -12,9 +12,9 @@ public class Wallet : MonoBehaviour
 
     public int Coin => _coin;
 
-    private void Start()
+    private void Awake()
     {
-        if (YandexGame.SDKEnabled)
+        if (YG2.isSDKEnabled)
         {
             LoadCoin();
         }
@@ -23,13 +23,15 @@ public class Wallet : MonoBehaviour
     private void OnEnable()
     {
         _playerUpCoin.UpCoin += AddCoin;
-        YandexGame.GetDataEvent += LoadCoin;
+        YG2.onGetSDKData += LoadCoin;
+        //YandexGame.GetDataEvent += LoadCoin;
     }
 
     private void OnDisable()
     {
         _playerUpCoin.UpCoin -= AddCoin;
-        YandexGame.GetDataEvent += LoadCoin;
+        YG2.onGetSDKData -= LoadCoin;
+        //YandexGame.GetDataEvent += LoadCoin;
     }
 
     private void AddCoin()
@@ -37,8 +39,8 @@ public class Wallet : MonoBehaviour
         _coin++;
         _coinInRound++;
 
-        YandexGame.savesData.Coins = _coin;
-        YandexGame.SaveProgress();
+        YG2.saves.coins = _coin;
+        YG2.SaveProgress();
         ChangeCoins();
 
         //#if !UNITY_EDITOR && UNITY_WEBGL
@@ -53,6 +55,6 @@ public class Wallet : MonoBehaviour
 
     private void LoadCoin()
     {
-        _coin = YandexGame.savesData.Coins;
+        _coin = YG2.saves.coins;
     }
 }
