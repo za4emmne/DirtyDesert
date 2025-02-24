@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using YG;
 using YG.Insides;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 [RequireComponent(typeof(GameManager))]
 
@@ -22,6 +23,7 @@ public class PlayMenu : MonoBehaviour
     [SerializeField] private GameObject _upButtom;
     [SerializeField] private GameObject _setting;
     [SerializeField] private Text _scoreText;
+    [SerializeField] private Text _speedText;
     [SerializeField] private Text _highScoreText;
     [SerializeField] private Text _coinsInWallet;
     [SerializeField] private Text _gameRulesText;
@@ -54,6 +56,7 @@ public class PlayMenu : MonoBehaviour
         _shop.SetActive(false);
         _upButtom.SetActive(false);
         _setting.SetActive(false);
+        _speedText.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -75,12 +78,14 @@ public class PlayMenu : MonoBehaviour
     {
         _playerBoomed.PlayerBoomed += GameOver;
         _scoreManager.HidedRules += HideRules;
+        _gameManager.ChangeSpeed += ChangeSpeed;
     }
 
     private void OnDisable()
     {
         _playerBoomed.PlayerBoomed -= GameOver;
         _scoreManager.HidedRules -= HideRules;
+        _gameManager.ChangeSpeed -= ChangeSpeed;
     }
 
     public void SettingWindow()
@@ -107,6 +112,11 @@ public class PlayMenu : MonoBehaviour
         _highScoreText.text = "Рекорд: " + _scoreManager.HighScore.ToString();
     }
 
+    public void ChangeSpeed()
+    {
+        _speedText.text = "Скорость: " + _gameManager.Speed.ToString("F2");
+    }
+
     public void ChangeCoins()
     {
         _coinsInWallet.text = _wallet.Coin.ToString() + "";
@@ -122,6 +132,7 @@ public class PlayMenu : MonoBehaviour
         _gameRulesText.gameObject.SetActive(true);
         _nameGame.SetActive(false);
         _scoreObject.SetActive(true);
+        _speedText.gameObject.SetActive(true);
         _coinCount.SetActive(true);
         _upButtom.SetActive(true);
         PlayerPrefs.SetInt("Restart", 0);

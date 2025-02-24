@@ -94,14 +94,15 @@ public class GameManager : MonoBehaviour
 
     private void AddSpeed()
     {
-        if (_speed < 7)
-            _speedStep = UnityEngine.Random.Range(0.5f, 1f);
+        if (_speed < 9)
+            _speedStep = UnityEngine.Random.Range(0.8f, 1.5f);
         else
-            _speedStep = UnityEngine.Random.Range(0.1f, 0.5f);
+            _speedStep = UnityEngine.Random.Range(0.5f, 0.9f);
 
         _speed += _speedStep;
         _playerGravityScale += 0.07f;
-        _playerJumping.AddJumpForce(7);
+        _playerJumping.ChangeTimeJump();
+        //_playerJumping.AddJumpForce(7);
 
         ChangeSpeed?.Invoke();
         SpawnTimeChanged?.Invoke();

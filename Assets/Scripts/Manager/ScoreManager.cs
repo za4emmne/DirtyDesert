@@ -8,6 +8,8 @@ public class ScoreManager : MonoBehaviour
 {
 
     [SerializeField] private PlayerGetScore _player;
+    [SerializeField] private int _minScore;
+    [SerializeField] private int _maxScore;
 
     [Header("Мониторинг данных")]
     [SerializeField] private int _score;
@@ -96,7 +98,7 @@ public class ScoreManager : MonoBehaviour
 
     private void RandomStepScore()
     {
-        int scoreStep = UnityEngine.Random.Range(3, 6);
+        int scoreStep = UnityEngine.Random.Range(_minScore, _maxScore);
 
         if (_nextStepScore == _score)
         {

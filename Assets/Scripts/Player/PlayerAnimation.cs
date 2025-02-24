@@ -6,6 +6,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     private const string AnimationNameRun = "Speed";
     private const string AnimationNameJump = "Jump";
+    private const string AnimationNameJumpBool = "JumpBool";
     private const string AnimationNameDead = "Dead";
 
     [SerializeField] private GameManager _gameManager;
@@ -36,9 +37,9 @@ public class PlayerAnimation : MonoBehaviour
         _playerBoomTNT.PlayerBoomed -= Dead;
     }
 
-    private void Jump()
+    private void Jump(bool set)
     {
-        _animator.SetTrigger(AnimationNameJump);
+        _animator.SetBool(AnimationNameJump, set);
     }
 
     private void Run()
