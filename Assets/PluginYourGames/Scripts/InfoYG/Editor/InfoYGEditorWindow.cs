@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
-using YG.Insides;
-
 namespace YG.EditorScr
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using UnityEditor;
+    using UnityEngine;
+    using YG.Insides;
+    using YG.EditorScr.BuildModify;
+
     public class InfoYGEditorWindow : EditorWindow
     {
         private InfoYG scr;
@@ -17,17 +18,17 @@ namespace YG.EditorScr
         private int versionUpdates;
         private bool isExampleFiles = true;
 
-        private Texture2D iconPluginYG2, iconSettings, iconDebugging, iconTemplate;
+        private Texture2D iconPluginYG2, iconSettings, iconDebugging, iconTemplate, iconConnect, iconPlatform;
         private Vector2 scrollPosition;
 
         private List<SerializedProperty> moduleIterators = new List<SerializedProperty>();
         private Texture2D[] moduleTextures = new Texture2D[0];
 
-        [MenuItem("Tools/YG2/" + Langs.settings)]
+        [MenuItem("Tools/YG2/" + Langs.settings, false, 0)]
         public static void ShowWindow()
         {
             InfoYGEditorWindow window = (InfoYGEditorWindow)GetWindow(typeof(InfoYGEditorWindow));
-            window.titleContent = new GUIContent("Settings YG2", (Texture2D)AssetDatabase.LoadAssetAtPath(InfoYG.ICON_YG2, typeof(Texture2D)));
+            window.titleContent = new GUIContent("  Settings YG2", (Texture2D)AssetDatabase.LoadAssetAtPath(InfoYG.PACH_ASSETS_ICON_YG2, typeof(Texture2D)));
             window.minSize = new Vector2(400, 700);
             window.Show();
         }
@@ -44,31 +45,35 @@ namespace YG.EditorScr
                 lastPlatform = PlatformSettings.currentPlatformFullName;
 
             Serialize();
+            YGEditorStyles.ReinitializeStyles();
+
             ServerInfo.onLoadServerInfo += OnLoadServerInfo;
-            EditorApplication.projectChanged += Reserialize;
+            ModuleQueue.onModuleLoaded += OnLoadServerInfo;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            ModifyBuild.onModifyComplete += Serialize;
         }
 
         private void OnDisable()
         {
             ServerInfo.onLoadServerInfo -= OnLoadServerInfo;
-            EditorApplication.projectChanged -= Reserialize;
+            ModuleQueue.onModuleLoaded -= OnLoadServerInfo;
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            ModifyBuild.onModifyComplete -= Serialize;
         }
+
+        private void OnPlayModeStateChanged(PlayModeStateChange state) => Serialize();
+        private void OnLoadServerInfo() => versionUpdates = VersionUpdatesLabel();
 
         private void Serialize()
         {
-            versionUpdates = VersionUpdatesLabel();
+            OnLoadServerInfo();
 
-            if (iconPluginYG2 == null)
-                iconPluginYG2 = AssetDatabase.LoadAssetAtPath<Texture2D>(InfoYG.ICON_YG2);
-
-            string iconSettingsPath = $"{InfoYG.ICONS}/Settings.png";
-            iconSettings = AssetDatabase.LoadAssetAtPath<Texture2D>(iconSettingsPath);
-
-            string iconDebuggingPath = $"{InfoYG.ICONS}/Debugging.png";
-            iconDebugging = AssetDatabase.LoadAssetAtPath<Texture2D>(iconDebuggingPath);
-
-            string iconTemplatePath = $"{InfoYG.ICONS}/ImageLoad.png";
-            iconTemplate = AssetDatabase.LoadAssetAtPath<Texture2D>(iconTemplatePath);
+            CreateIcon(InfoYG.PATCH_PC_ICON_YG2, out iconPluginYG2);
+            CreateIcon(Path.Combine(InfoYG.PATCH_PC_ICONS, "Settings.png"), out iconSettings);
+            CreateIcon(Path.Combine(InfoYG.PATCH_PC_ICONS, "Debugging.png"), out iconDebugging);
+            CreateIcon(Path.Combine(InfoYG.PATCH_PC_ICONS, "ImageLoad.png"), out iconTemplate);
+            CreateIcon(Path.Combine(InfoYG.PATCH_PC_ICONS, "Platform.png"), out iconConnect);
+            CreateIcon(PlatformSettingsEditor.GetIconCurrentPlatformPath(PlatformSettings.currentPlatformBaseName), out iconPlatform);
 
             string[] modules = Directory.GetDirectories(InfoYG.PATCH_PC_MODULES);
             for (int i = 0; i < modules.Length; i++)
@@ -106,10 +111,13 @@ namespace YG.EditorScr
             for (int i = 0; i < moduleIterators.Count; i++)
             {
                 string modulName = moduleIterators[i].name;
-                string texturePath = $"{InfoYG.PATCH_ASSETS_MODULES}/{modulName}/Scripts/Editor/Icons/{modulName}.png";
-                Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
-                moduleTextures[i] = texture;
+                string texturePath = Path.Combine(InfoYG.PATCH_PC_MODULES, modulName, "Scripts", "Editor", "Icons", modulName + ".png");
+
+                if (File.Exists(texturePath))
+                    CreateIcon(texturePath, out moduleTextures[i]);
             }
+
+            Repaint();
         }
 
         private void Reserialize()
@@ -118,6 +126,20 @@ namespace YG.EditorScr
             moduleIterators = new List<SerializedProperty>();
             moduleTextures = new Texture2D[0];
             OnEnable();
+        }
+
+        public static bool CreateIcon(string pach, out Texture2D textureProperty)
+        {
+            if (!File.Exists(pach))
+            {
+                textureProperty = null;
+                return false;
+            }
+
+            byte[] fileData = File.ReadAllBytes(pach);
+            textureProperty = new Texture2D(2, 2);
+            textureProperty.LoadImage(fileData);
+            return true;
         }
 
         private void OnGUI()
@@ -156,7 +178,7 @@ namespace YG.EditorScr
 
             GUILayout.BeginHorizontal();
             DocumentationEditor.DocButton();
-            DocumentationEditor.ChatButton();
+            DocumentationEditor.HelpButton();
             DocumentationEditor.VideoButton();
             GUILayout.EndHorizontal();
             GUILayout.Space(2);
@@ -199,9 +221,26 @@ namespace YG.EditorScr
             if (iconPluginYG2)
             {
                 GUILayout.Space(20);
+
                 Rect textureRect = GUILayoutUtility.GetRect(40, 40, GUILayout.ExpandWidth(false));
                 GUI.DrawTexture(textureRect, iconPluginYG2);
                 GUILayout.Space(10);
+
+                Rect textureMiddleRect = GUILayoutUtility.GetRect(20, 20, GUILayout.ExpandWidth(false));
+                Vector2 pivot = new Vector2(textureMiddleRect.x + textureMiddleRect.width / 2, textureMiddleRect.y + textureMiddleRect.height / 2);
+                Matrix4x4 originalMatrix = GUI.matrix;
+                GUIUtility.RotateAroundPivot(45f, pivot);
+                Rect rotatedRect = new Rect(textureMiddleRect.x + 7, textureMiddleRect.y + 7, textureMiddleRect.width, textureMiddleRect.height);
+                GUI.DrawTexture(rotatedRect, iconConnect);
+                GUI.matrix = originalMatrix;
+                GUILayout.Space(8);
+
+                if (iconPlatform)
+                {
+                    Rect textureLastRect = GUILayoutUtility.GetRect(40, 40, GUILayout.ExpandWidth(false));
+                    GUI.DrawTexture(textureLastRect, iconPlatform);
+                    GUILayout.Space(10);
+                }
             }
             else
             {
@@ -217,6 +256,7 @@ namespace YG.EditorScr
             GUILayout.EndHorizontal();
 
             GUILayout.Space(10);
+            EditorGUI.BeginChangeCheck();
 
             GUILayout.BeginHorizontal(YGEditorStyles.boxLight);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("Basic"), new GUIContent("Basic Settings"), true);
@@ -281,7 +321,7 @@ namespace YG.EditorScr
 
             if (lastPlatform != currentPlatform)
             {
-                InfoYG.CleanPlatforms(currentPlatform);
+                InfoYG.SetPlatform(currentPlatform);
 
                 if (currentPlatform == "NullPlatform")
                 {
@@ -403,12 +443,8 @@ namespace YG.EditorScr
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
 
-            Repaint();
-        }
-
-        private void OnLoadServerInfo()
-        {
-            versionUpdates = VersionUpdatesLabel();
+            if (EditorUtils.IsMouseOverWindow(this))
+                Repaint();
         }
 
         private int VersionUpdatesLabel()

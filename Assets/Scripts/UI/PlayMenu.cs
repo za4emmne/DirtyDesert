@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
@@ -11,7 +11,7 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class PlayMenu : MonoBehaviour
 {
-    [Header("Объекты меню")]
+    [Header("РћР±СЉРµРєС‚С‹ РјРµРЅСЋ")]
     [SerializeField] private GameObject _nameGame;
     [SerializeField] private GameObject _gameOver;
     [SerializeField] private GameObject _pauseMenu;
@@ -28,20 +28,22 @@ public class PlayMenu : MonoBehaviour
     [SerializeField] private Text _coinsInWallet;
     [SerializeField] private Text _gameRulesText;
 
-    [Header("Вспомогательные скрипты")]
+    [Header("Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ СЃРєСЂРёРїС‚С‹")]
     [SerializeField] private PlayerBoomTNT _playerBoomed;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private Wallet _wallet;
 
-    [Header("Настройки Твин")]
+    [Header("РќР°СЃС‚СЂРѕР№РєРё РўРІРёРЅ")]
     [SerializeField] private Vector3 _targetActive;
     [SerializeField] private Vector3 _targetInactive;
     [SerializeField] private float _duration;
 
-
+    public string ru, en, tr;
     public event Action StartGame;
     private int _isRestart;
+    private string _speedWord;
+    private string _highScoreWord;
 
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class PlayMenu : MonoBehaviour
         _upButtom.SetActive(false);
         _setting.SetActive(false);
         _speedText.gameObject.SetActive(false);
+        SwitchLanguage(YG2.lang);
     }
 
     private void Start()
@@ -71,7 +74,7 @@ public class PlayMenu : MonoBehaviour
             Play();
 
         if (Application.isMobilePlatform)
-            _gameRulesText.text = "Тапни на кнопку снизу, чтобы прыгать";
+            _gameRulesText.text = "РўР°РїРЅРё РЅР° РєРЅРѕРїРєСѓ СЃРЅРёР·Сѓ, С‡С‚РѕР±С‹ РїСЂС‹РіР°С‚СЊ";
     }
 
     private void OnEnable()
@@ -86,6 +89,25 @@ public class PlayMenu : MonoBehaviour
         _playerBoomed.PlayerBoomed -= GameOver;
         _scoreManager.HidedRules -= HideRules;
         _gameManager.ChangeSpeed -= ChangeSpeed;
+    }
+
+    public void SwitchLanguage(string lang)
+    {
+        switch (lang)
+        {
+            case "ru":
+                _speedWord = "РЎРєРѕСЂРѕСЃС‚СЊ: ";
+                _highScoreWord = "Р РµРєРѕСЂРґ: ";
+                break;
+            case "tr":
+                _speedWord = "hД±z: ";
+                _highScoreWord = "rekor: ";
+                break;
+            case "en":
+                _speedWord = "Speed: ";
+                _highScoreWord = "HighScore: ";
+                break;
+        }
     }
 
     public void SettingWindow()
@@ -109,12 +131,12 @@ public class PlayMenu : MonoBehaviour
 
     public void ChangeHighSCore()
     {
-        _highScoreText.text = "Рекорд: " + _scoreManager.HighScore.ToString();
+        _highScoreText.text = _highScoreWord + _scoreManager.HighScore.ToString();
     }
 
     public void ChangeSpeed()
     {
-        _speedText.text = "Скорость: " + _gameManager.Speed.ToString("F2");
+        _speedText.text = _speedWord + _gameManager.Speed.ToString("F2");
     }
 
     public void ChangeCoins()

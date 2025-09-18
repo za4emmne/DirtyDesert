@@ -22,6 +22,7 @@ public class ScoreManager : MonoBehaviour
 
     public int HighScore => _highScore;
     public int Score => _score;
+    private string _scoreWord;
 
     private void Awake()
     {
@@ -31,10 +32,24 @@ public class ScoreManager : MonoBehaviour
         }
 
         //_highScore = PlayerPrefs.GetInt("SaveScore");
-
+        SwitchLanguage(YG2.lang);
         _score = 0;
     }
-
+    public void SwitchLanguage(string lang)
+    {
+        switch (lang)
+        {
+            case "ru":
+                _scoreWord = "Очки: ";
+                break;
+            case "tr":
+                _scoreWord = "Puan: ";
+                break;
+            case "en":
+                _scoreWord = "Score: ";
+                break;
+        }
+    }
     public void GetLoad()
     {
         _highScore = YG2.saves.score;
@@ -63,7 +78,7 @@ public class ScoreManager : MonoBehaviour
 
     private void ChangeScore()
     {
-        _scoreText.text = "Очки: " + _score.ToString();
+        _scoreText.text = _scoreWord + _score.ToString();
     }
 
     private void AddScore()

@@ -1,19 +1,22 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.Build;
 
 namespace YG.Insides
 {
     [Serializable]
     public partial class ProjectSettings
     {
-#if UNITY_EDITOR
+        public bool autoPauseGame = true;
         public bool selectWebGLTemplate = true;
         public bool runInBackground = false;
         public WebGLExceptionSupport enableExceptions = WebGLExceptionSupport.FullWithoutStacktrace;
         public WebGLCompressionFormat compressionFormat = WebGLCompressionFormat.Brotli;
         public bool decompressionFallback;
         public bool autoGraphicsAPI = true;
+        public ManagedStrippingLevel managedStrippingLevel = ManagedStrippingLevel.Minimal;
         public bool dataCaching = true;
         public ColorSpace colorSpace = ColorSpace.Gamma;
         public bool archivingBuild = true;
@@ -22,6 +25,9 @@ namespace YG.Insides
         public void ApplySettings()
         {
             PlatformToggles toggles = YG2.infoYG.platformToggles;
+
+            if (toggles.autoPauseGame)
+                YG2.infoYG.Basic.autoPauseGame = autoPauseGame;
 
             if (toggles.runInBackground)
                 PlayerSettings.runInBackground = runInBackground;
@@ -42,6 +48,9 @@ namespace YG.Insides
                     PlayerSettings.SetUseDefaultGraphicsAPIs(EditorUserBuildSettings.activeBuildTarget, autoGraphicsAPI);
             }
 
+            if (toggles.managedStrippingLevel)
+                SetManagedStrippingLevel(managedStrippingLevel);
+
             if (toggles.dataCaching)
                 PlayerSettings.WebGL.dataCaching = dataCaching;
 
@@ -57,6 +66,16 @@ namespace YG.Insides
             CallAction.CallIByAttribute(typeof(ApplySettingsAttribute), GetType(), this);
             AssetDatabase.SaveAssets();
         }
-#endif
+
+        private static void SetManagedStrippingLevel(ManagedStrippingLevel strippingLevel)
+        {
+            NamedBuildTarget buildTarget = NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+
+            if (buildTarget == NamedBuildTarget.Unknown)
+                return;
+
+            PlayerSettings.SetManagedStrippingLevel(buildTarget, strippingLevel);
+        }
     }
 }
+#endif
