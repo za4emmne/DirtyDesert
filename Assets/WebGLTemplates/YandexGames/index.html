@@ -18,6 +18,7 @@
             padding: 0;
             margin: 0;
             overflow: hidden;
+            overscroll-behavior: none;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -124,12 +125,15 @@
             SetVisibility(true);
         });
 
-        document.addEventListener('click', () => {
-          const canvas = document.getElementById('canvas');
-          if (canvas && canvas.requestPointerLock) {
-            canvas.requestPointerLock({ unadjustedMovement: true });
-          }
-        });
+        const oRequestPointerLock = Element.prototype.requestPointerLock;
+        Element.prototype.requestPointerLock = async function hkRequestPointerLock(...args) {
+            try {
+                (args[0] ||= {}).unadjustedMovement = true;
+                await oRequestPointerLock.apply(this, args);
+            } catch (err) {
+                console.log(err);
+            }
+        };
 
         function InstallBlurFocusBlocker() {
             if (!('onblur' in document)) return;
@@ -163,7 +167,7 @@
         }
 
         function FocusGame() {
-            canvas.focus();
+            if (!isPausedGame) canvas.focus();
         }
 
         function SetVisibility(visibility) {

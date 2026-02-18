@@ -81,7 +81,7 @@ namespace YG.EditorScr
                     {
                         FileYG.DeleteDirectory(patchModules);
                     }
-                    else if (Directory.Exists(patchPlatforms))
+                    else if (Directory.Exists(patchPlatforms) || Directory.Exists(patchPlatforms.Replace("Integration", "")))
                     {
                         if (module.nameModule != "YandexGames")
                             DeletePlatformWebGLTemplate(module.nameModule);
@@ -160,8 +160,17 @@ namespace YG.EditorScr
         public static void DeletePlatformWebGLTemplate(string folderNamePlatform)
         {
             string deleteDirectory = $"{InfoYG.PATCH_PC_WEBGLTEMPLATES}/{folderNamePlatform}";
+
             if (Directory.Exists(deleteDirectory))
+            {
                 FileYG.DeleteDirectory(deleteDirectory);
+            }
+            else
+            {
+                deleteDirectory += "Integration";
+                if (Directory.Exists(deleteDirectory))
+                    FileYG.DeleteDirectory(deleteDirectory);
+            }
 
             if (FileYG.IsFolderEmpty(InfoYG.PATCH_PC_WEBGLTEMPLATES))
                 Directory.Delete(InfoYG.PATCH_PC_WEBGLTEMPLATES);
@@ -169,24 +178,51 @@ namespace YG.EditorScr
 
         public static bool IsModuleCurrentVersion(Module module)
         {
-            float.TryParse(module.projectVersion, NumberStyles.Float, CultureInfo.InvariantCulture, out float projectVersion);
-            float.TryParse(module.lastVersion, NumberStyles.Float, CultureInfo.InvariantCulture, out float lastVersion);
+            if (module == null)
+                return true;
 
-            if (lastVersion > projectVersion)
+            if (!TryParseVersion(module.projectVersion, out float projectVersion))
+                return true;
+
+            if (!TryParseVersion(module.lastVersion, out float lastVersion))
+                return true;
+
+            return lastVersion <= projectVersion;
+        }
+        private static bool TryParseVersion(string v, out float value)
+        {
+            value = 0f;
+
+            if (string.IsNullOrWhiteSpace(v))
                 return false;
-            return true;
+
+            v = v.Replace("v", string.Empty).Replace(",", ".").Trim();
+
+            if (string.Equals(v, "imported", StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return float.TryParse(v, NumberStyles.Float, CultureInfo.InvariantCulture, out value);
         }
 
         public static bool ExistUpdates(List<Module> modules)
         {
-            for (int i = 1; i < modules.Count; i++)
+            if (modules == null || modules.Count == 0)
+                return false;
+
+            for (int i = 0; i < modules.Count; i++)
             {
-                if (!string.IsNullOrEmpty(modules[i].projectVersion) && !ModulesInstaller.IsModuleCurrentVersion(modules[i]))
-                {
+                var m = modules[i];
+                if (m == null) continue;
+
+                if (m.nameModule == VersionControlWindow.SELECT_MODULES_KEY)
+                    continue;
+
+                if (!string.IsNullOrEmpty(m.projectVersion) && !IsModuleCurrentVersion(m))
                     return true;
-                }
             }
+
             return false;
         }
+
     }
 }
