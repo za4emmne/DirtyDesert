@@ -1,79 +1,55 @@
+/*
+ * This script is responsible for managing the instantiation of objects in the game.
+ */
+
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InstantiateObject : MonoBehaviour
 {
-    [SerializeField] private GameManager _gameManager;
-    [SerializeField] private UnityEngine.GameObject[] _templates;
-    [SerializeField] private PlayerBoomTNT _playerBoomed;
-    [SerializeField] private float _minDelay;
-    [SerializeField] private float _maxDelay;
-    [SerializeField] private float _devationPositionY = 0;
-    [SerializeField] private float _spawnTime;
+    // Variables for controlling object spawning
+    public GameObject objectToSpawn;
+    public float spawnDelay = 1.0f;
+    private float currentSpawnDelay;
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
-    private int _objectNumber;
-    private Coroutine _coroutine;
-
-    private void Start()
+    // Method for setting spawn delays
+    public void SetSpawnDelays(float delay)
     {
-        //_isGameOver = false;
-        
+        spawnDelay = delay;
     }
 
-    private void OnEnable()
+    // Method for weighted spawning
+    public void WeightedSpawn(int weight)
     {
-        _playerBoomed.PlayerBoomed += StopInstantieting;
-        _gameManager.SpawnTimeChanged += ChangeSpawnTime;
-        _gameManager.Play += StartInstantiating;
-    }
-
-    private void OnDisable()
-    {
-        _playerBoomed.PlayerBoomed -= StopInstantieting;
-        _gameManager.SpawnTimeChanged -= ChangeSpawnTime;
-        _gameManager.Play -= StartInstantiating;
-    }
-
-    private void StopInstantieting()
-    {
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-    }
-
-    private void StartInstantiating()
-    {
-        _coroutine = StartCoroutine(Spawn());
-    }
-
-    private IEnumerator Spawn()
-    {
-        float minPositionY = transform.position.y - _devationPositionY;
-        float maxPositionY = transform.position.y + _devationPositionY;
-
-        while (true)
+        for (int i = 0; i < weight; i++)
         {
-            float positionY = Random.Range(minPositionY, maxPositionY);
-
-            _spawnTime = Random.Range(_minDelay, _maxDelay);
-
-            var waitForSeconds = new WaitForSeconds(_spawnTime);
-
-            UnityEngine.GameObject gameObject = Instantiate(_templates[Random.Range(0, _templates.Length)],
-                new Vector3(transform.position.x, positionY, transform.position.z), Quaternion.identity);
-
-            yield return waitForSeconds;
+            GameObject obj = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+            spawnedObjects.Add(obj);
         }
     }
 
-    private void ChangeSpawnTime()
+    // Start is called before the first frame update
+    void Start()
     {
-            _minDelay -= 0.5f;
-            _maxDelay -= 0.5f;
+        currentSpawnDelay = spawnDelay;
+        // Example of how to use the weighted spawn
+        WeightedSpawn(3); // Spawns the object 3 times
+    }
 
-        if (_minDelay < 2)
+    // Update is called once per frame
+    void Update()
+    {
+        // Handle spawn timing here
+        if (currentSpawnDelay <= 0)
         {
-            _minDelay += 0.3f;
-            _maxDelay += 0.3f;
+            WeightedSpawn(1); // Adjust the weight as needed
+            currentSpawnDelay = spawnDelay;
+        }
+        else
+        {
+            currentSpawnDelay -= Time.deltaTime;
         }
     }
 }
